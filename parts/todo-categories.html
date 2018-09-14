@@ -1,0 +1,28 @@
+<div class="sub-menu-bar">
+    <ul>
+         <li><a href="#/todo_categories">TODO Categories</a></li>
+         <li><a href="#/people">People</a></li>
+     </ul>       
+</div> 
+<hr>
+<div class="row">
+      <div class="col-md-12">
+          <div class="list-container">
+              <button type="button" class="button-add" ng-click="addCategory()">
+             <span class="glyphicon glyphicon-plus"></span> 
+            </button>           
+         <div class="todo-list">
+        <ul >
+        <li class="todo-list-elem" ng-repeat="category in todoCategoryList | orderBy: orderProp | filter:query" style="background-color:{{category.color}};">
+          <a href="#/todo-category/{{category.id}}">{{category.name}}</a> 
+          <div class="list-buttons">   
+            <button type="button" class="button-remove" ng-click="removeCategory(category.id)">
+             <span class="glyphicon glyphicon-trash"></span> 
+            </button>             
+        </div>
+        </li>
+      </ul>
+    </div>
+    </div>
+    </div>
+</div>    

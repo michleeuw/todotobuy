@@ -1,0 +1,31 @@
+{
+  "name": "planningapp_with_backend_2",
+  "authors": [
+    "mivleeuw"
+  ],
+  "description": "angular todolist experiment",
+  "main": "js/app.js",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "https://github.com/angular/bower-angular.git#^1.5.3",
+    "angular-animate": "https://github.com/angular/bower-angular-animate.git#^1.5.3",
+    "bootstrap": "https://github.com/twbs/bootstrap.git#^3.3.6",
+    "jquery-ui": "https://github.com/components/jqueryui.git#^1.11.4",
+    "angular-route": "https://github.com/angular/bower-angular-route.git#^1.5.3",
+    "jquery": "https://github.com/jquery/jquery.git#^2.2.3",
+    "bower-angularjs": "https://github.com/chrisyip/bower-angularjs.git#^1.3.15",
+    "ui-bootstrap-0.13.1-SNAPSHOT": "https://github.com/ragefuljoe/ui-bootstrap-tpls-0.13.1-SNAPSHOT.git"
+  },
+  "private": true
+}

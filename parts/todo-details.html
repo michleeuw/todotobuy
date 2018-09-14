@@ -1,0 +1,208 @@
+<div id="todo-detail" ng-controller="ToDoDetailCtrl">
+	<div id="top-bar" >
+
+		<div class="top-buttons">
+			<p class="todo-heading">{{curTodo.name}}</p>
+			<img class="header-status-icon" ng-src="img/{{curTodo.status}}.png"/>
+		</div>
+	</div>
+	<div id="todo-details-bar">
+		<ul class="nav nav-tabs" role="tablist" >
+			<li ng-click="changeTab('general')">
+				<a>General</a>
+			</li>
+			<li ng-click="changeTab('people')">
+				<a>People</a>
+			</li>
+			<li ng-click="changeTab('shoppingList')">
+				<a>Shopping List</a>
+			</li>
+			<li ng-click="changeTab('subTasks')">
+				<a>SubTasks</a>
+			</li>
+			<li ng-click="changeTab('related')">
+				<a>Related</a>
+			</li>
+		</ul>
+	</div>
+	<div id="general-tab" ng-show="todoTab=='general'" ng-init="setForm('todoForm')">
+		<form name="todoForm" class="css-form" novalidate>
+			<p>
+				<label for="tName">Name:</label>
+				<input type="text"  size="25" ng-model="curTodo.name" name="tName" value="{{curTodo.name}}" required=""/>
+				<div class="form-error-text"  ng-show="todoForm.$submitted || todoForm.tName.$touched">
+					<div ng-show="todoForm.tName.$error.required">
+						Name is required.
+					</div>
+				</div>
+			</p>
+			<br>
+			<p>
+				<label for="tDescription">Description:</label>
+				<textarea rows="5" cols="25" ng-model="curTodo.description" name="tDescription" value="{{curTodo.description}}"></textarea>
+			</p>
+			<br>
+			<p>
+				<label for="tCriterion">Criterion:</label>
+				<textarea rows="5" cols="25" ng-model="curTodo.criterion" name="tCriterion"> </textarea>
+			</p>
+			<br>
+			<p>
+				<label for="tCreationDate">Creation Date:</label>
+				<span>{{curTodo.creationDate | date:'yyyy-MM-dd'}}</span>
+				<br>
+				<br>
+			<p>
+				<label for="tDeadline">Deadline:</label>
+				<input type="text" size="25" id="deadlineField" value="{{curTodo.deadline}}" datepicker-popup="{{format}}" ng-model="curTodo.deadline" is-open="opened" min-date="minDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+				<span >
+					<button type="button" class="btn btn-default" ng-click="openDatePicker($event)">
+						<i class="glyphicon glyphicon-calendar"></i>
+					</button> </span>
+			</p>
+			<br>
+			<p>
+				<label for="tName">Status:</label>
+				<input type="radio" ng-model="curTodo.status" value="inprogress" />
+				In Progress
+				<input type="radio" ng-model="curTodo.status" value="onhold" />
+				On Hold
+				<input type="radio" ng-model="curTodo.status" value="done" />
+				Done
+			</p>
+			<br>
+			<p>
+				<label for="tCategory">Category:</label>
+				<select ng-model="curTodo.category" ng-init="curTodo.category">
+					<option value=''>{{curTodo.category}}</option>
+					<option ng-repeat="cat in todoCategoryList" value="{{cat.name}}" >{{cat.name}}</option>
+				</select>
+			</p>			
+		</form>
+	</div>
+	<div id="people-tab" ng-show="todoTab=='people'">
+		<div class="select-box" ng-show="peopleList.length > 0">
+			<select ng-model="selectedPerson" ng-change="addToPeople()">
+				<option value="">Choose Person</option>
+				<option ng-repeat="person in peopleList" value="{{person}}" >{{person.name}}</option>
+			</select>
+		</div>
+		<div class="list-container">
+			<div class="todo-list">
+				<ul >
+					<li class="todo-list-elem" ng-repeat="person in curTodo.people">
+						<a href="#/person/{{person.id}}">{{person.name}}</a>
+						<div class="list-buttons">
+							<button type="button" class="button-remove" ng-click="removeFromPeople(person)">
+								<span class="glyphicon glyphicon-trash"></span>
+							</button>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="shoppinglist-tab" ng-show="todoTab=='shoppingList'">
+		<div class="list-container">
+			<button type="button" class="button-add" ng-click="addToShoppingList()">
+				<span class="glyphicon glyphicon-plus"></span>
+			</button>
+			<div class="todo-list">
+				<ul >
+					<li class="todo-list-elem" ng-repeat="item in tobuyList | orderBy: 'name'" ng-if="item.usedIn == curTodo.id" style="background-color:{{getItemCatColor(item.category)}};">
+						<a href="#/tobuys/{{item.id}}">{{item.name}}</a>
+						<div class="list-buttons">
+							<button type="button" class="button-remove" ng-click="removeFromShoppingList(item)">
+								<span class="glyphicon glyphicon-trash"></span>
+							</button>
+							<img class="status-icon" ng-src="img/{{item.status}}.png">
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="subtasks-tab" ng-show="todoTab=='subTasks'">
+		<div class="list-container">
+			<button type="button" class="button-add" ng-click="addToSubTasks()">
+				<span class="glyphicon glyphicon-plus"></span>
+			</button>
+			<div class="todo-list">
+				<ul >
+					<li class="todo-list-elem" ng-repeat="todo in curTodo.subTasks">
+						{{todo.name}}
+						<div class="list-buttons">
+							<button type="button" class="button-edit" ng-click="editSubTask(todo)">
+								<span class="glyphicon glyphicon-pencil"></span>
+							</button>
+							<button type="button" class="button-remove" ng-click="removeFromSubtasks(todo)">
+								<span class="glyphicon glyphicon-trash"></span>
+							</button>
+							<img class="status-icon" ng-src="img/{{todo.status}}.png">
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="edit-subtask-tab" ng-show="todoTab=='editSubTask'">
+		<div class="top-buttons">
+			<img ng-src="img/{{curSubTask.status}}.png">
+		</div>
+		<form name="subTaskForm" class="css-form" novalidate>
+			<p>
+				<label for="tName">Name:</label>
+				<input type="text"  size="25" ng-model="curSubTask.name" name="tName" value="{{curSubTask.name}}" required=""/>
+			</p>
+			<p>
+				<label for="tDescription">Description:</label>
+				<textarea rows="5" cols="25" ng-model="curSubTask.description" name="tDescription" value="{{curSubTask.description}}"></textarea>
+			</p>
+			<p>
+				<label for="tCriterion">Criterion:</label>
+				<textarea rows="5" cols="25" ng-model="curSubTask.criterion" name="tCriterion"> </textarea>
+			</p>
+			<p>
+				<label for="tName">Deadline:</label>
+				<input type="text" id="subtask-deadlineField"  size="25" value="{{curSubTask.deadline}}" datepicker-popup="{{format}}" ng-model="curSubTask.deadline" is-open="opened" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+				<span >
+					<button type="button" class="btn btn-default" ng-click="openDatePicker($event)">
+						<i class="glyphicon glyphicon-calendar"></i>
+					</button> </span>
+			</p>
+			<p>
+				<label for="tName">Status:</label>
+				<input type="radio" ng-model="curSubTask.status" value="inprogress" />
+				In Progress
+				<input type="radio" ng-model="curSubTask.status" value="onhold" />
+				On Hold
+				<input type="radio" ng-model="curSubTask.status" value="done" />
+				Done
+			</p>			
+		</form>
+	</div>
+	<div id="related-tab" ng-show="todoTab=='related'">
+		<div class="select-box" ng-show="relatedTodoList.length > 0">
+			<select ng-model="selectedRelated" ng-change="addToRelated()">
+				<option  value="">Choose Related TODO</option>
+				<option ng-repeat="todo in relatedTodoList" ng-if="todo.name != curTodo.name" value="{{todo}}" >{{todo.name}}</option>
+			</select>
+		</div>
+		<div class="list-container">
+			<div class="todo-list">
+				<ul >
+					<li class="todo-list-elem" ng-repeat="todo in curTodo.related" style="background-color:{{getTodoCatColor(todo.category)}};">
+						<a href="#/todos/{{todo.id}}">{{todo.name}}</a>
+						<div class="list-buttons">
+							<button type="button" class="button-remove" ng-click="removeFromRelated(todo)">
+								<span class="glyphicon glyphicon-trash"></span>
+							</button>
+							<img class="status-icon" ng-src="img/{{todo.status}}.png">
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,56 @@
+<div class="sub-menu-bar">
+    <ul>
+         <li><a href="#/todo_categories">TODO Categories</a></li>
+         <li><a href="#/people">People</a></li>
+     </ul>       
+</div> 
+<hr>
+<div class="row">
+    <div class="col-md-4">   
+    <div class="css-form"> 
+      <p>
+          <label for="tQuery">Search:</label>
+          <input ng-model="query" name="tQuery">
+        </p> 
+        <br>
+        <p>
+       <label for="tSort">Sort by:</label>
+        <select ng-model="orderProp" name="tSort">
+          <option value="name">Alphabetical</option> 
+          <option value="deadline">Deadline</option>
+          <option value="creationDate">Creation Date</option>
+          <option value="category">Category</option> 
+          <option value="status">Status</option>           
+        </select>
+        </p>
+        <br>
+        </div>  
+    </div>     
+     <div class="col-md-8">
+         <div class="list-container">
+         <button type="button" class="button-add" ng-click="addToDo()" title="New TODO">
+             <span class="glyphicon glyphicon-plus"></span> 
+            </button> 
+          <button type="button" class="button-up" ng-show="reverse==false" ng-click="setListDirection(true)">
+             <span class="glyphicon glyphicon-arrow-up"></span> 
+            </button> 
+         <button type="button" class="button-down" ng-show="reverse==true" ng-click="setListDirection(false)">
+             <span class="glyphicon glyphicon-arrow-down"></span> 
+            </button> 
+         <div class="todo-list">
+        <ul >
+        <li class="todo-list-elem" ng-repeat="todo in todoList | orderBy: orderProp:reverse | filter:query" style="background-color:{{getTodoCatColor(todo.category)}};">
+          <a class="name-field" href="#/todos/{{todo.id}}">{{todo.name}}</a>
+          <div class="list-buttons">
+              <span class="days-to-go" ng-show="showDays(todo.daysToGo)">{{todo.daysToGo}} to go</span>
+            <button type="button" class="button-remove" ng-click="removeToDo(todo.id)" title="remove TODO">
+             <span class="glyphicon glyphicon-trash"></span> 
+            </button> 
+            <img class="status-icon" ng-src="img/{{getTodoStatus(todo)}}.png" title="{{getTodoStatus(todo)}}">  
+        </div>
+        </li>
+      </ul>
+     </div>
+    </div>
+    </div>
+</div>    

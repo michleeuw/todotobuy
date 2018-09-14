@@ -1,0 +1,37 @@
+<div class="sub-menu-bar">
+    <ul>
+         <li><a href="#/todo_categories">TODO Categories</a></li>
+         <li><a href="#/people">People</a></li>
+     </ul>       
+</div> 
+<hr>
+<form name="personForm" class="css-form" novalidate ng-controller="PersonDetailCtrl">
+    <p><label for="tName">Name:</label>
+    <input type="text"  size="40" ng-model="curPerson.name" name="tName" value="{{curPerson.name}}" required=""/>
+       <div class="form-error-text"  ng-show="personForm.$submitted || personForm.tName.$touched">
+        <div ng-show="personForm.tName.$error.required">Name is required.</div>
+    </div>
+    </p> 
+    <br>
+    <p><label for="tFunction">Function:</label>
+    <input type="text"  size="40" ng-model="curPerson.function" name="tFunction" value="{{curPerson.function}}" />
+    </p>
+    <br>
+    <p><label for="tPhone">Phone:</label>
+    <input type="text"  size="40" ng-model="curPerson.phone" name="tPhone" value="{{curPerson.phone}}" integer ng-minlength="10" ng-maxlength="10"/>
+        <div class="form-error-text">
+        <span ng-show="personForm.tPhone.$error.integer">This is not a valid integer!</span>
+        <span ng-show="personForm.tPhone.$touched && (personForm.tPhone.$error.minlength || personForm.tPhone.$error.maxlength)">The phone number must have 10 digits!</span>
+            </div>
+    </p> 
+    <p><label>Click to call:</label>
+   	<a href='tel:" + {{curPerson.phone}} +"'>{{curPerson.phone}}</a>
+    <br>
+    <p><label for="tEmail">Email:</label>
+    <input type="email"  size="40" ng-model="curPerson.email" name="tEmail" value="{{curPerson.email}}" required=""/>
+        <div class="form-error-text" ng-show="personForm.$submitted || personForm.tEmail.$touched">
+          <span ng-show="personForm.tEmail.$error.required">Tell us your email.</span>
+          <span ng-show="personForm.tEmail.$error.email">This is not a valid email.</span>
+        </div>
+    </p>     
+ </form>

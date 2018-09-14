@@ -1,0 +1,122 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, urrent
+small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	vertical-align: middle;
+}
+html {
+
+}
+/*INDEX*/
+.button-add {
+	margin-left: -38px;
+}
+#menu-bar a {
+	font-size: 30px;
+}
+.sub-menu-bar li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 50px;
+}
+/*TODO LIST*/
+.todo-heading{
+	float: left;
+	color: #1E90FF;
+	font-size: 20px;
+	margin: 0 12px 0 0;
+}
+.header-status-icon{
+	float: left;
+}
+.todo-list li {
+	list-style-type: none;
+	padding-left: 10px;
+	width: 400px;
+	height: 30px;
+	background-color: aliceblue;
+	margin-bottom: 5px;
+}
+/*TODO EDIT/CREATE*/
+#top-bar {
+	height: 40px;	
+}
+.top-buttons {
+	margin-left: 20px;
+}
+#todo-details-bar li {
+	font-size: 12px;
+	cursor: pointer;
+	padding-bottom: 5px;
+}
+/*.nav nav-tabs li a.current {
+ color:red;
+ }*/
+.list-container {
+	margin-left: 60px;
+}
+.list-buttons {
+	float: right;
+	width: 170px;
+	height: 30px;
+}
+.status-icon {
+	float: right;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.button-remove {
+	float: right;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.days-to-go {
+	font-size: 12px;
+}
+.close {
+	float: right;
+}
+.save-button {
+	margin: 20px 0 20px 50px;
+}
+.feedback-text {
+	margin: 0 0 0 50px;
+}
+.css-form {
+	margin-top: 10px;
+	font-size: 12px;
+}
+.css-form input.ng-invalid.ng-touched {
+	background-color: #FA787E;
+}
+.css-form input.ng-valid.ng-touched {
+	background-color: #78FA89;
+}
+
+label {
+	width: 100px;
+	float: left;
+	text-align: right;
+	padding-right: 5px;
+}
+input textarea {
+	width: 300px;
+	float: right;
+}
+
+.form-error-text {
+	color: red;
+	text-align: center;
+}
+p {
+	clear: both;
+}
+.select-box {
+	height: 40px;
+}

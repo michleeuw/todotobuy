@@ -1,0 +1,33 @@
+.todo-list-elem.ng-enter,
+.todo-list-elem.ng-leave,
+.todo-list-elem.ng-move {
+  -webkit-transition: 0.5s linear all;
+  -moz-transition: 0.5s linear all;
+  -o-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+}
+
+.todo-list-elem.ng-enter,
+.todo-list-elem.ng-move {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.todo-list-elem.ng-move.ng-move-active,
+.todo-list-elem.ng-enter.ng-enter-active {
+  opacity: 1;
+  height: 30px;
+}
+
+.todo-list-elem.ng-leave {
+  opacity: 1;
+  overflow: hidden;
+}
+
+.todo-list-elem.ng-leave.ng-leave-active {
+  opacity: 0;
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}

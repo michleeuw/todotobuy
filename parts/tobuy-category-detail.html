@@ -1,0 +1,17 @@
+<div class="sub-menu-bar">
+    <ul>
+         <li><a href="#/tobuy_categories">TOBUY Categories</a></li>         
+     </ul>       
+</div> 
+<hr>
+<form name="tobuyCategoryForm" class="css-form" novalidate>
+   <p><label for="tName">Name:</label>
+    <input type="text"  size="25" ng-model="curCategory.name" name="tName" value="{{curCategory.id}}" required=""/>
+       <div class="form-error-text"  ng-show="tobuyCategoryForm.$submitted || tobuyCategoryForm.tName.$touched">
+        <div ng-show="tobuyCategoryForm.tName.$error.required">Name is required.</div>
+    </div>
+    <br>
+    <p><label for="tColor">Color:</label>
+    <input colorpicker="hex" size="25" type="text" name="tColor" ng-model="curCategory.color" style="background-color:{{curCategory.color}};"/>
+    </p>   
+ </form>

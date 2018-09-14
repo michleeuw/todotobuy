@@ -1,0 +1,82 @@
+<div id="tobuy-detail" ng-controller="ToBuyDetailCtrl">
+	<a href="#/todos/{{curTobuy.usedIn}}">{{getName(curTobuy.usedIn)}}</a>
+	<div id="top-bar" >
+		<div class="top-buttons">
+			<img ng-src="img/{{curTobuy.status}}.png">
+		</div>
+	</div>
+	<div id="general-tab">
+		<form name="tobuyForm" class="css-form" novalidate>
+			<p>
+				<label for="tName">Name:</label>
+				<input type="text"  size="25" ng-model="curTobuy.name" name="tName" value="{{curTobuy.name}}" required=""/>
+				<div class="form-error-text"  ng-show="tobuyForm.$submitted || tobuyForm.tName.$touched">
+					<div ng-show="tobuyForm.tName.$error.required">
+						Name is required.
+					</div>
+				</div>
+			</p>
+			<br>
+			<p>
+				<label for="tPrice">Price: &euro; </label>
+				<input type="text" size="25" ng-model="curTobuy.price" name="tPrice" value="{{curTobuy.price}}"/>
+			</p>
+			<br>
+			<p>
+				<label for="tQuantity">Quantity:</label>
+				<input type="number" min="1" ng-model="curTobuy.quantity" name="tQuantity" value="{{curTobuy.quantity}}"/>
+			</p>
+			<br>
+			<br>
+			<p>
+				<label>Total Price: </label> {{curTobuy.quantity * curTobuy.price | currency:"&euro;"}}
+				<br>
+				<br>
+			<p>
+				<label for="tSupplier">Supplier:</label>
+				<input type="text"  size="25" ng-model="curTobuy.supplier" name="tSupplier" value="{{curTobuy.supplier}}"/>
+				<br>
+				<br>
+			<p>
+				<label for="tCreationDate">Creation Date:</label>
+				<span>{{curTobuy.creationDate | date:'yyyy-MM-dd'}}</span>
+				<br>
+				<br>
+			<p>
+				<label for="tDeadline">Deadline:</label>
+				<input type="text" size="25" id="deadlineField" value="{{curTobuy.deadline}}" datepicker-popup="{{format}}" ng-model="curTobuy.deadline" is-open="opened" min-date="minDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+				<span >
+					<button type="button" class="btn btn-default" ng-click="openDatePicker($event)">
+						<i class="glyphicon glyphicon-calendar"></i>
+					</button> </span>
+			</p>
+			<br>
+			<p>
+				<label for="tName">Status:</label>
+				<input type="radio" ng-model="curTobuy.status" value="inprogress" />
+				In Progress
+				<input type="radio" ng-model="curTobuy.status" value="onhold" />
+				On Hold
+				<input type="radio" ng-model="curTobuy.status" value="done" />
+				Done
+			</p>
+			<br>
+			<p>
+				<label for="tCategory">Category:</label>
+				<select ng-model="curTobuy.category" ng-init="curTobuy.category">
+					<option value=''>{{curTobuy.category}}</option>
+					<option ng-repeat="cat in tobuyCategoryList" value="{{cat.name}}" >{{cat.name}}</option>
+				</select>
+			</p>
+			<br>
+			<p>
+				<label for="tUsedIn">Used In:</label>
+				<select ng-model="curTobuy.usedIn" ng-init="curTobuy.usedIn">
+					<option value=''>{{getName(curTobuy.usedIn)}}</option>
+					<option ng-repeat="todo in todoList" value="{{todo.id}}" >{{todo.name}}</option>
+				</select>
+			</p>
+		</form>
+	</div>
+</div>
+
